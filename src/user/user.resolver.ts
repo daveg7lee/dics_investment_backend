@@ -16,8 +16,8 @@ export class UserResolver {
 
   @Mutation((returns) => AuthOutput)
   async auth(
-    @Args('AuthInput') { username, email, avatar }: AuthInput
+    @Args('AuthInput') { id, email, username, avatar }: AuthInput
   ): Promise<AuthOutput> {
-    return this.userService.auth(username, email, avatar);
+    return this.userService.auth(id, email, username, avatar);
   }
 }

@@ -7,6 +7,7 @@ export class AuthInput extends PickType(User, [
   'email',
   'username',
   'avatar',
+  'id',
 ]) {}
 
 @ObjectType()

@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UserModule } from './user/user.module';
-import { CompanyModule } from './company/company.module';
-import { StockModule } from './stock/stock.module';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { ConfigModule } from '@nestjs/config';
+import { ClubModule } from './club/club.module';
 
 @Module({
   imports: [
@@ -27,13 +26,12 @@ import { ConfigModule } from '@nestjs/config';
       },
     }),
     UserModule,
-    CompanyModule,
-    StockModule,
     JwtModule.forRoot({
       privateKey: process.env.PRIVATE_KEY,
     }),
     AuthModule,
     CommonModule,
+    ClubModule,
   ],
   controllers: [],
   providers: [],
