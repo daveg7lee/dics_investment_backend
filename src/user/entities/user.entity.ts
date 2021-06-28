@@ -1,5 +1,4 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { UserRole } from '@prisma/client';
 import { CoreEntity } from 'src/common/entities/core.entity';
 
 @InputType('UserInputType', { isAbstract: true })
@@ -13,7 +12,4 @@ export class User extends CoreEntity {
 
   @Field((type) => String)
   avatar?: string;
-
-  @Field((type) => UserRole)
-  role: UserRole;
 }

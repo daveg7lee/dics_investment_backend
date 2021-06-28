@@ -11,7 +11,7 @@ export class UserService {
   async auth(id, email, username, avatar) {
     try {
       // check is there user
-      const user = await client.user.findUnique({ where: { username } });
+      const user = await client.user.findUnique({ where: { email } });
       if (user) {
         // check user's id if there are user
         const checkId = await bcrypt.compare(id.toString(), user.id);
