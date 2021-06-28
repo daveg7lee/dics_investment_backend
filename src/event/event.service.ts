@@ -32,6 +32,9 @@ export class EventService {
   async deleteEvent({ id }, user) {
     try {
       const event = await client.event.findUnique({ where: { id } });
+      if (!event) {
+        throw new Error('id is wrong');
+      }
       if (event.userId !== user.id) {
         throw new Error("You can't delete this event");
       }

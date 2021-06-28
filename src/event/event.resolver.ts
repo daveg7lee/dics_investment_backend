@@ -32,6 +32,7 @@ export class EventResolver {
   }
 
   @Mutation((returns) => DeleteEventOutput)
+  @Role(['USER'])
   deleteEvent(
     @AuthUser() user: User,
     @Args('DeleteEventInput') deleteEventInput: DeleteEventInput
