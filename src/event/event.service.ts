@@ -24,4 +24,20 @@ export class EventService {
       };
     }
   }
+
+  async deleteEvent({ id }, user) {
+    try {
+      const event = await client.event.findUnique({ where: { id } });
+      if (event.userId !== user.id) {
+        throw new Error("You can't delete this event");
+      }
+      await client.event.delete({ where: { id } });
+      return { ok: true };
+    } catch (e) {
+      return {
+        ok: false,
+        error: e.message,
+      };
+    }
+  }
 }
