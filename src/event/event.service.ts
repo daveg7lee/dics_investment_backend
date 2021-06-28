@@ -3,9 +3,13 @@ import client from 'src/client';
 
 @Injectable()
 export class EventService {
-  hello() {
-    return 'hello';
-  }
+  seeEvents = () => client.event.findMany({ include: { owner: true } });
+
+  seeEvent = ({ id }) =>
+    client.event.findUnique({
+      where: { id },
+      include: { owner: true },
+    });
 
   async createEvent({ title, purpose, payUrl }, owner) {
     try {

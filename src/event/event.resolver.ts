@@ -4,6 +4,7 @@ import { Role } from 'src/auth/role.decorator';
 import { User } from 'src/user/entities/user.entity';
 import { CreateEventInput, CreateEventOutput } from './dtos/create-event.dto';
 import { DeleteEventInput, DeleteEventOutput } from './dtos/delete-event.dto';
+import { SeeEventInput } from './dtos/see-event.dto';
 import { Event } from './entities/event.entity';
 import { EventService } from './event.service';
 
@@ -11,10 +12,14 @@ import { EventService } from './event.service';
 export class EventResolver {
   constructor(private readonly eventService: EventService) {}
 
-  @Query((returns) => String)
-  @Role(['Any'])
-  hello() {
-    return this.eventService.hello();
+  @Query((returns) => [Event])
+  seeEvents() {
+    return this.eventService.seeEvents();
+  }
+
+  @Query((returns) => Event)
+  seeEvent(@Args('seeEventInput') seeEventInput: SeeEventInput) {
+    return this.eventService.seeEvent(seeEventInput);
   }
 
   @Mutation((returns) => CreateEventOutput)
