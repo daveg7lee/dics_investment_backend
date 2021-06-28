@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import client from 'src/client';
 import { JwtService } from 'src/jwt/jwt.service';
+const bcrypt = require('bcrypt');
 
 @Injectable()
 export class UserService {
@@ -9,17 +10,33 @@ export class UserService {
   // create new user if not exists
   async auth(id, email, username, avatar) {
     try {
-      const user = await client.user.findUnique({ where: { id } });
+      // check is there user
+      const user = await client.user.findUnique({ where: { username } });
       if (user) {
-        const token = this.jwtService.sign(user.id);
-        return { ok: true, token };
+        // check user's id if there are user
+        const checkId = await bcrypt.compare(id.toString(), user.id);
+        if (checkId) {
+          // make token if id is correct
+          const token = this.jwtService.sign(user.id);
+          // return token with ok sign
+          return { ok: true, token };
+        } else {
+          // throw error when id is incorrect
+          throw new Error('Id is incorrect');
+        }
       }
+      // hashing id for security
+      const hashedId = await bcrypt.hash(String(id), 10);
+      // make new user with email, username, avatar, and hashedId
       const newUser = await client.user.create({
-        data: { email, username, avatar, id },
+        data: { email, username, avatar, id: hashedId },
       });
+      // make token with user id
       const token = this.jwtService.sign(newUser.id);
+      // return token with ok sign
       return { ok: true, token };
     } catch (e) {
+      // return error when there are error
       return { ok: false, error: e.message };
     }
   }

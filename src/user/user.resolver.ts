@@ -8,12 +8,6 @@ import { UserService } from './user.service';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Query((returns) => String)
-  @Role(['Any'])
-  hello() {
-    return 'hello';
-  }
-
   @Mutation((returns) => AuthOutput)
   async auth(
     @Args('AuthInput') { id, email, username, avatar }: AuthInput

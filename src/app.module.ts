@@ -5,7 +5,7 @@ import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { ConfigModule } from '@nestjs/config';
-import { ClubModule } from './club/club.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { ClubModule } from './club/club.module';
     }),
     AuthModule,
     CommonModule,
-    ClubModule,
+    EventModule,
   ],
   controllers: [],
   providers: [],
