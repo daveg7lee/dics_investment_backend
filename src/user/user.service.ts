@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import client from 'src/client';
 import { JwtService } from 'src/jwt/jwt.service';
+import { EditProfileInput } from './dtos/edit-profile.dto';
+import { User } from './entities/user.entity';
 const bcrypt = require('bcrypt');
 
 @Injectable()
@@ -38,6 +40,23 @@ export class UserService {
     } catch (e) {
       // return error when there are error
       return { ok: false, error: e.message };
+    }
+  }
+  async editProfile(
+    { username, avatar, payUrl }: EditProfileInput,
+    user: User
+  ) {
+    try {
+      await client.user.update({
+        where: { id: user.id },
+        data: { username, avatar, payUrl },
+      });
+      return { ok: true };
+    } catch (e) {
+      return {
+        ok: false,
+        error: e.message,
+      };
     }
   }
 }

@@ -5,11 +5,14 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 @ObjectType()
 export class User extends CoreEntity {
   @Field((type) => String)
-  username: string;
+  username?: string;
 
   @Field((type) => String)
-  email: string;
+  email?: string;
 
   @Field((type) => String)
   avatar?: string;
+
+  @Field((type) => String)
+  payUrl?: string;
 }
