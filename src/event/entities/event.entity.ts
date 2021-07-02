@@ -16,4 +16,7 @@ export class Event extends CoreEntity {
 
   @Field((type) => String)
   payUrl: String;
+
+  @Field((type) => String)
+  banner: String;
 }

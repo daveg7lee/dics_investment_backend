@@ -29,6 +29,7 @@ model Event {
   owner   User   @relation(fields: [userId], references: [id])
   userId  String
   payUrl  String
+  banner  String
 }
 
 enum UserRole {

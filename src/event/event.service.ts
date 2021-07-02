@@ -11,14 +11,20 @@ export class EventService {
       include: { owner: true },
     });
 
-  async createEvent({ title, purpose, payUrl }, owner) {
+  async createEvent({ title, purpose, payUrl, banner }, owner) {
     try {
       const isTitle = await client.event.findUnique({ where: { title } });
       if (isTitle) {
         throw new Error('There are duplicate title.');
       }
       await client.event.create({
-        data: { title, payUrl, purpose, owner: { connect: { id: owner.id } } },
+        data: {
+          title,
+          payUrl,
+          purpose,
+          banner,
+          owner: { connect: { id: owner.id } },
+        },
       });
       return { ok: true };
     } catch (e) {

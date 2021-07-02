@@ -7,6 +7,7 @@ export class CreateEventInput extends PickType(Event, [
   'title',
   'purpose',
   'payUrl',
+  'banner',
 ]) {}
 
 @ObjectType()
