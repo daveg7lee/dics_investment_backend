@@ -59,4 +59,16 @@ export class UserService {
       };
     }
   }
+
+  async deleteUser(user) {
+    try {
+      await client.event.deleteMany({ where: { owner: { id: user.id } } });
+      await client.user.delete({ where: { id: user.id } });
+      return {
+        ok: true,
+      };
+    } catch (e) {
+      return { ok: false, error: e.message };
+    }
+  }
 }
