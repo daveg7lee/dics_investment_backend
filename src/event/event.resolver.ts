@@ -22,6 +22,12 @@ export class EventResolver {
     return this.eventService.seeEvent(seeEventInput);
   }
 
+  @Query((returns) => [Event])
+  @Role(['USER'])
+  myEvents(@AuthUser() user: User) {
+    return this.eventService.myEvents(user.id);
+  }
+
   @Mutation((returns) => CreateEventOutput)
   @Role(['USER'])
   createEvent(

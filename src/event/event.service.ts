@@ -11,6 +11,8 @@ export class EventService {
       include: { owner: true },
     });
 
+  myEvents = (userId) => client.event.findMany({ where: { userId } });
+
   async createEvent({ title, purpose, payUrl, banner }, owner) {
     try {
       const isTitle = await client.event.findUnique({ where: { title } });
