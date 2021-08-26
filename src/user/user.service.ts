@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import client from 'src/client';
 import { JwtService } from 'src/jwt/jwt.service';
 import { EditProfileInput } from './dtos/edit-profile.dto';
+import { GetUserInput } from './dtos/get-user.dto';
 import { User } from './entities/user.entity';
 const bcrypt = require('bcrypt');
 
@@ -69,6 +70,14 @@ export class UserService {
       };
     } catch (e) {
       return { ok: false, error: e.message };
+    }
+  }
+  async getUser({ id }: GetUserInput) {
+    try {
+      const user = await client.user.findUnique({ where: { id } });
+      return user;
+    } catch (e) {
+      return;
     }
   }
 }

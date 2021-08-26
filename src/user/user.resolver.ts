@@ -4,6 +4,7 @@ import { Role } from 'src/auth/role.decorator';
 import { AuthInput, AuthOutput } from './dtos/auth.dto';
 import { DeleteUserOutput } from './dtos/delete-user.dto';
 import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
+import { GetUserInput } from './dtos/get-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
@@ -22,6 +23,11 @@ export class UserResolver {
   @Role(['USER'])
   me(@AuthUser() user: User) {
     return user;
+  }
+
+  @Query((returns) => User)
+  getUser(@Args('GetUserInput') getUserInput: GetUserInput) {
+    return this.userService.getUser(getUserInput);
   }
 
   @Mutation((returns) => EditProfileOutput)
