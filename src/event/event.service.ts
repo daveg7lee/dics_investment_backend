@@ -11,7 +11,11 @@ export class EventService {
       include: { owner: true },
     });
 
-  myEvents = (userId) => client.event.findMany({ where: { userId } });
+  myEvents = (userId) =>
+    client.event.findMany({
+      where: { userId },
+      include: { owner: true },
+    });
 
   async createEvent({ title, purpose, payUrl, banner }, owner) {
     try {
